@@ -7,6 +7,7 @@
 
 #include "ws2812.h"
 #include "stdlib.h"
+#include "quantum.h"
 
 static uint8_t *fb;
 static int sLeds;
@@ -49,7 +50,8 @@ void WS2812_init(void) {
   static uint8_t * p;
   //uint32_t port = RGBLED_PORT;
   //ledDriverInit(RGBLED_NUM, (stm32_gpio_t *)(port & 0xFFF0), 1 << (port & 0xF), &p);
-  ledDriverInit(RGBLED_NUM, GPIOA, 0b00000010, &p);
+  pin_t rgb_pin = RGB_DI_PIN;
+  ledDriverInit(RGBLED_NUM, PAL_PORT(rgb_pin), 1 << PAL_PAD(rgb_pin), &p);
 }
 
 void ledDriverInit(int leds, stm32_gpio_t *port, uint32_t mask, uint8_t **o_fb) {
@@ -183,7 +185,7 @@ void WS2812_send_color( uint8_t index ) {
   setColor(led_array[index].b, (fb+24*index)+16, sMask);
 }
 
-void WS2812_set_color( uint8_t index, uint8_t red, uint8_t green, uint8_t blue ) {
+void WS2812_set_color( int index, uint8_t red, uint8_t green, uint8_t blue ) {
   led_array[index].r = red;
   led_array[index].g = green;
   led_array[index].b = blue;
