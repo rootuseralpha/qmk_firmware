@@ -288,50 +288,51 @@ uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _RAISE:
         #ifdef BACKLIGHT_ENABLE
-        backlight_set(1);
+          backlight_set(1);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_setrgb_green();
+          rgblight_setrgb_green();
         #endif
         break;
     case _MRAISE:
         #ifdef BACKLIGHT_ENABLE
-        backlight_set(1);
+          backlight_set(1);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_setrgb_green();
+          rgblight_setrgb_green();
         #endif
         break;
     case _LOWER:
         #ifdef BACKLIGHT_ENABLE
-        backlight_set(2);
+          backlight_set(2);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_setrgb_yellow();
+          rgblight_setrgb_yellow();
         #endif
         break;
     case _ADJUST:
         #ifdef BACKLIGHT_ENABLE
-        backlight_set(0);
+          backlight_set(0);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_setrgb_red();
+          rgblight_disable();
+          //rgblight_setrgb_red();
         #endif
         break;
     case _MUSICL:
         #ifdef BACKLIGHT_ENABLE
-        backlight_set(0);
+          backlight_set(0);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_setrgb_magenta();
+          rgblight_setrgb_magenta();
         #endif
         break;
     default: //  for any other layers, or the default layer
         #ifdef BACKLIGHT_ENABLE
-        backlight_set(3);
+          backlight_set(3);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_setrgb_white();
+          rgblight_setrgb_white();
         #endif
         break;
     }
