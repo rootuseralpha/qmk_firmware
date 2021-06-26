@@ -6,7 +6,7 @@ Vinta
 
 This is an ARM-powered 65% keyboard PCB with USB Mini B connector and breakout for optional RGB underglow.
 
-Keyboard Maintainer: [Peioris](http://peioris.space/) and on [github](https://github.com/coarse)  
+Keyboard Maintainer: [Peioris](http://peioris.space/) and on [GitHub](https://github.com/coarse)  
 Hardware Supported: Vinta with STM32F042K6T6  
 Hardware Availability: Private Groupbuy (will post on Reddit once QMK has RGB underglow working)
 
@@ -14,7 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make vinta:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 #### Developer's Note
 

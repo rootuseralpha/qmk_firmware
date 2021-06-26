@@ -22,6 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "clks.h"
 #include <string.h>
 
+#ifndef MATRIX_IO_DELAY
+#    define MATRIX_IO_DELAY 1
+#endif
+
 matrix_row_t mlatest[MATRIX_ROWS];
 matrix_row_t mlast[MATRIX_ROWS];
 matrix_row_t mdebounced[MATRIX_ROWS];
@@ -31,6 +35,8 @@ uint8_t row_pins[] = { MATRIX_ROW_PINS };
 uint8_t col_ports[] = { MATRIX_COL_PORTS };
 uint8_t col_pins[] = { MATRIX_COL_PINS };
 uint32_t row_masks[2]; //NOTE: If more than PA PB used in the future, adjust code to accomodate
+
+__attribute__((weak)) void matrix_io_delay(void) { wait_us(MATRIX_IO_DELAY); }
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -79,8 +85,6 @@ void matrix_init(void)
     matrix_init_quantum();
 }
 
-#define MATRIX_SCAN_DELAY 10   //Delay after setting a col to output (in us)
-
 uint64_t mdebouncing = 0;
 uint8_t matrix_scan(void)
 {
@@ -89,9 +93,7 @@ uint8_t matrix_scan(void)
     uint8_t col;
     uint32_t scans[2]; //PA PB
 
-    if (CLK_get_ms() < mdebouncing) return 1; //mdebouncing == 0 when no debouncing active
-
-    //DBG_1_OFF; //Profiling scans
+    if (timer_read64() < mdebouncing) return 1; //mdebouncing == 0 when no debouncing active
 
     memset(mlatest, 0, MATRIX_ROWS * sizeof(matrix_row_t)); //Zero the result buffer
 
@@ -99,7 +101,7 @@ uint8_t matrix_scan(void)
     {
         PORT->Group[col_ports[col]].OUTSET.reg = 1 << col_pins[col]; //Set col output
 
-        CLK_delay_us(MATRIX_SCAN_DELAY); //Delay for output
+        matrix_io_delay(); //Delay for output
 
         scans[PA] = PORT->Group[PA].IN.reg & row_masks[PA]; //Read PA row pins data
         scans[PB] = PORT->Group[PB].IN.reg & row_masks[PB]; //Read PB row pins data
@@ -132,10 +134,8 @@ uint8_t matrix_scan(void)
     else
     {
         //Begin or extend debounce on change
-        mdebouncing = CLK_get_ms() + DEBOUNCING_DELAY;
+        mdebouncing = timer_read64() + DEBOUNCE;
     }
-
-    //DBG_1_ON; //Profiling scans
 
     matrix_scan_quantum();
 

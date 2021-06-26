@@ -38,9 +38,6 @@ enum planck_keycodes {
   EXT_PLV
 };
 
-#define XXXXXXX KC_NO
-#define _______ KC_TRNS
-
 #define CTL_ESC CTL_T(KC_ESC)  // Tap for Escape, hold for Control
 #define HPR_TAB ALL_T(KC_TAB)  // Tap for Tab, hold for Hyper (Super+Ctrl+Alt+Shift)
 #define MEH_GRV MEH_T(KC_GRV)  // Tap for Backtick, hold for Meh (Ctrl+Alt+Shift)
@@ -268,7 +265,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update(bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -319,6 +316,7 @@ void dip_update(uint8_t index, bool active) {
         #endif
       }
    }
+    return true;
 }
 
 void matrix_scan_user(void) {
