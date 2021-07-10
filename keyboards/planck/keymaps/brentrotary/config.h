@@ -1,9 +1,7 @@
-//#ifndef CONFIG_USER_H
-//#define CONFIG_USER_H
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
-//#include "config_common.h"
-
-#pragma once
+#include "config_common.h"
 
 #ifdef AUDIO_ENABLE
     #define SHORT_SOUND \
@@ -47,9 +45,12 @@
 //tapdance
 #define TAPPING_TERM 150
 
-//#define USB_MAX_POWER_CONSUMPTION 100
+#define USB_MAX_POWER_CONSUMPTION 100
 
-// Most tactile encoders have detents every 4 stages
+#define ENCODERS_PAD_A { B12 }
+#define ENCODERS_PAD_B { B13 }
+#define ENCODER_DIRECTION_FLIP
 #define ENCODER_RESOLUTION 4
+#define TAP_CODE_DELAY 10
 
-//#endif
+#endif

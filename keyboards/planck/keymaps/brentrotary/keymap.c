@@ -161,21 +161,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT_planck_grid(
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_VOLU,
-  _______, P_ALL,   P_CUT,   P_CPY,   P_PSTE,  RGB_TOG, RGB_MOD, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_VOLD,
-  _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, P_UNDO,  P_REDO,  P_FIND,  KC_PSCR, KC_MUTE,
+  _______, P_ALL,   P_CUT,   P_CPY,   P_PSTE,  XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_VOLD,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, P_UNDO,  P_REDO,  P_FIND,  KC_PSCR, KC_MUTE,
   _______, _______, KC_LCTL, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 [_MRAISE] = LAYOUT_planck_grid(
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_HOME,  KC_UP,   M_END,   KC_PGUP, KC__VOLUP,
-  _______, M_ALL,   M_CUT,   M_CPY,   M_PSTE,  RGB_TOG, RGB_MOD, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC__VOLDOWN,
-  _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, M_UNDO,  M_REDO,  M_FIND,  M_PSCR,  KC__MUTE,
+  _______, M_ALL,   M_CUT,   M_CPY,   M_PSTE,  XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC__VOLDOWN,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_UNDO,  M_REDO,  M_FIND,  M_PSCR,  KC__MUTE,
   _______, _______, KC_LGUI, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 /* Adjust (Lower + Raise) (6)
  * ,-----------------------------------------------------------------------------------.
- * |Sleep | Reset| Music| mac  | PC   |      |      |  F1  |  F2  |  F3  |  F4  |VolUp |
+ * |Power | Reset| Music| mac  | PC   |      |      |  F1  |  F2  |  F3  |  F4  |VolUp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |Aud on|Audoff|      |      |  F5  |  F6  |  F7  |  F8  |VolDn |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -185,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-  KC_SLEP, RESET,   MUSICL,  MDVORAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,
+  KC_PWR,  RESET,   MUSICL,  MDVORAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,
   _______, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  XXXXXXX, XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,
   _______, MUV_DE,  MUV_IN,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
   _______, KC_MEH,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -199,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float tone_caps_off[][2]   = SONG(NUM_LOCK_OFF_SOUND);
   float tone_caps_on[][2]    = SONG(CAPS_LOCK_ON_SOUND);
   float tone_nums_off[][2]   = SONG(SCROLL_LOCK_OFF_SOUND);
-  float tone_nums_on[][2]    = SONG(COIN_SOUND);
+  float tone_nums_on[][2]    = SONG(NUM_LOCK_ON_SOUND);
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -291,12 +291,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(1);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_setrgb_green();
-        #endif
-        #ifdef RGB_MATRIX_ENABLE
-        for(int i=0; i<9; i++){
-          rgb_matrix_set_color(i, 0xFF, 0xFF, 0xFF);
-        }
+        rgblight_sethsv_noeeprom_green();
         #endif
         break;
     case _MRAISE:
@@ -304,12 +299,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(1);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_setrgb_green();
-        #endif
-        #ifdef RGB_MATRIX_ENABLE
-        for(int i=0; i<9; i++){
-          rgb_matrix_set_color(i, 0xFF, 0xFF, 0xFF);
-        }
+        rgblight_sethsv_noeeprom_green();
         #endif
         break;
     case _LOWER:
@@ -317,12 +307,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(2);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_setrgb_yellow();
-        #endif
-        #ifdef RGB_MATRIX_ENABLE
-        for(int i=0; i<9; i++){
-          rgb_matrix_set_color(i, 0xFF, 0xFF, 0xFF);
-        }
+        rgblight_sethsv_noeeprom_blue();
         #endif
         break;
     case _ADJUST:
@@ -330,12 +315,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(0);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_setrgb_red();
-        #endif
-        #ifdef RGB_MATRIX_ENABLE
-        for(int i=0; i<9; i++){
-          rgb_matrix_set_color(i, 0xFF, 0xFF, 0xFF);
-        }
+        rgblight_sethsv_noeeprom_red();
         #endif
         break;
     case _MUSICL:
@@ -343,12 +323,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(0);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_setrgb_magenta();
-        #endif
-        #ifdef RGB_MATRIX_ENABLE
-        for(int i=0; i<9; i++){
-          rgb_matrix_set_color(i, 0xFF, 0xFF, 0xFF);
-        }
+        rgblight_sethsv_noeeprom_magenta();
         #endif
         break;
     default: //  for any other layers, or the default layer
@@ -356,16 +331,29 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(3);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_setrgb_white();
-        #endif
-        #ifdef RGB_MATRIX_ENABLE
-        for(int i=0; i<9; i++){
-          rgb_matrix_set_color(i, 0xFF, 0xFF, 0xFF);
-        }
+        rgblight_sethsv_noeeprom_white();
         #endif
         break;
     }
   return state;
+}
+
+//Rotary encoder code
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_AUDIO_VOL_UP);
+        } else {
+            tap_code(KC_AUDIO_VOL_DOWN);
+        }
+    } else if (index == 1) { /* Second encoder */
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+    }
+    return true;
 }
 
 //Tap Dance Definitions
