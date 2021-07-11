@@ -291,6 +291,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(1);
         #endif
         #ifdef RGBLIGHT_ENABLE
+        //blue
         rgblight_sethsv_noeeprom(96, 255, 255);
         #endif
         break;
@@ -299,6 +300,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(1);
         #endif
         #ifdef RGBLIGHT_ENABLE
+        //green
         rgblight_sethsv_noeeprom(96, 255, 255);
         #endif
         break;
@@ -307,6 +309,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(2);
         #endif
         #ifdef RGBLIGHT_ENABLE
+        //green
         rgblight_sethsv_noeeprom(185, 255, 255);
         #endif
         break;
@@ -315,6 +318,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(0);
         #endif
         #ifdef RGBLIGHT_ENABLE
+        //red
         rgblight_sethsv_noeeprom(0, 255, 255);
         #endif
         break;
@@ -331,6 +335,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(3);
         #endif
         #ifdef RGBLIGHT_ENABLE
+        //white
         rgblight_sethsv_noeeprom(0, 136, 255);
         #endif
         break;
