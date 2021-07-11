@@ -177,17 +177,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |Power | Reset| Music| mac  | PC   |      |      |  F1  |  F2  |  F3  |  F4  |VolUp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|      |      |  F5  |  F6  |  F7  |  F8  |VolDn |
+ * |      | HUE+ | HUE- | SAT+ | SAT- |BRGTH+|BRGTH-|  F5  |  F6  |  F7  |  F8  |VolDn |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|      |      |      |      |  F9  |  F10 |  F11 |  F12 |Mute  |
+ * |      |Voice-|Voice+|Aud on|Audoff| RGB  |RGBMOD|  F9  |  F10 |  F11 |  F12 |Mute  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
   KC_PWR,  RESET,   MUSICL,  MDVORAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,
-  _______, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  XXXXXXX, XXXXXXX, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,
-  _______, MUV_DE,  MUV_IN,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
+  _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,
+  _______, MUV_DE,  MUV_IN,  AU_ON,   AU_OFF,  RGB_TOG, RGB_MOD, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
   _______, KC_MEH,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 
@@ -291,7 +291,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(1);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_sethsv_noeeprom_green();
+        rgblight_sethsv_noeeprom(96, 255, 255);
         #endif
         break;
     case _MRAISE:
@@ -299,7 +299,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(1);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_sethsv_noeeprom_green();
+        rgblight_sethsv_noeeprom(96, 255, 255);
         #endif
         break;
     case _LOWER:
@@ -307,7 +307,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(2);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_sethsv_noeeprom_blue();
+        rgblight_sethsv_noeeprom(185, 255, 255);
         #endif
         break;
     case _ADJUST:
@@ -315,7 +315,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(0);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_sethsv_noeeprom_red();
+        rgblight_sethsv_noeeprom(0, 255, 255);
         #endif
         break;
     case _MUSICL:
@@ -331,7 +331,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(3);
         #endif
         #ifdef RGBLIGHT_ENABLE
-        rgblight_sethsv_noeeprom_white();
+        rgblight_sethsv_noeeprom(0, 136, 255);
         #endif
         break;
     }
