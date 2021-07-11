@@ -54,7 +54,6 @@ extern keymap_config_t keymap_config;
 enum planck_layers {
   _DVORAK,
   _MDVORAK,
-  _MUSICL,
   _LOWER,
   _RAISE,
   _MRAISE,
@@ -64,7 +63,6 @@ enum planck_layers {
 enum planck_keycodes {
   DVORAK = SAFE_RANGE,
   MDVORAK,
-  MUSICL,
   LOWER,
   RAISE,
   BACKLIT,
@@ -111,26 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, AD_MEH,  RA_GUI,  LO_ALT, CSHIFT, KC_SPC,  KC_ENT,  KC_BSPC, KC_DEL,  KC_LEFT, KC_RGHT, KC_DOWN
   ),
 
-  /* Music Layer (2)
-   * ,-----------------------------------------------------------------------------------.
-   * |NUMLK |   -  |   7  |   8  |   9  |   /  |   @  |   [  |   ]  |   &  |   ~  |   %  |
-   * |------+------+------+------+------+-------------+------+------+------+------+------|
-   * |   `  |   +  |   4  |   5  |   6  |   *  |   \  |   (  |   )  |   !  |   ^  |      |
-   * |------+------+------+------+------+------|------+------+------+------+------+------|
-   * |      |   0  |   1  |   2  |   3  |   =  |   $  |   {  |   }  |   |  |   #  |      |
-   * |------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |      |      |      |      |      |
-   * `-----------------------------------------------------------------------------------'
-   */
-
-  [_MUSICL] = LAYOUT_planck_grid(
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    MU_OFF,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    MU_ON,   TO(6),   TO(0),   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-  ),
-
-/* Lower, minus hold, alpha hold (3)
+/* Lower, minus hold, alpha hold (2)
  * ,-----------------------------------------------------------------------------------.
  * |NUMLK |   -  |   7  |   8  |   9  |   /  |   @  |   [  |   ]  |   &  |   ~  |   %  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -148,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, KC_LALT, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
-/* Raise, tab hold (4 PC, 5 mac)
+/* Raise, tab hold (3 PC, 4 mac)
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      | Home | Up   | End  |Pg Up |VolUp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -173,9 +152,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, KC_LGUI, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
-/* Adjust (Lower + Raise) (6)
+/* Adjust (Lower + Raise) (5)
  * ,-----------------------------------------------------------------------------------.
- * |Power | Reset| Music| mac  | PC   |      |      |  F1  |  F2  |  F3  |  F4  |VolUp |
+ * |Power | Reset|      | mac  | PC   |      |      |  F1  |  F2  |  F3  |  F4  |VolUp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      | HUE+ | HUE- | SAT+ | SAT- |BRGTH+|BRGTH-|  F5  |  F6  |  F7  |  F8  |VolDn |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -185,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-  KC_PWR,  RESET,   MUSICL,  MDVORAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,
+  KC_PWR,  RESET,   XXXXXXX, MDVORAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,
   _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,
   _______, MUV_DE,  MUV_IN,  AU_ON,   AU_OFF,  RGB_TOG, RGB_MOD, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
   _______, KC_MEH,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -215,12 +194,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_MDVORAK);
         layer_off(_DVORAK);
-      }
-      return false;
-      break;
-    case MUSICL:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_MUSICL);
       }
       return false;
       break;
@@ -322,14 +295,6 @@ uint32_t layer_state_set_user(uint32_t state) {
         rgblight_sethsv_noeeprom(0, 255, 255);
         #endif
         break;
-    case _MUSICL:
-        #ifdef BACKLIGHT_ENABLE
-        backlight_set(0);
-        #endif
-        #ifdef RGBLIGHT_ENABLE
-        rgblight_sethsv_noeeprom_magenta();
-        #endif
-        break;
     default: //  for any other layers, or the default layer
         #ifdef BACKLIGHT_ENABLE
         backlight_set(3);
@@ -414,6 +379,7 @@ void _td_dv_finished (qk_tap_dance_state_t *state, void *user_data) {
   layer_off(_MDVORAK);
 	layer_off(_LOWER);
 	layer_off(_RAISE);
+  layer_off(_MRAISE);
 	layer_off(_ADJUST);
   }
 }
@@ -444,6 +410,7 @@ void _td_mdv_finished (qk_tap_dance_state_t *state, void *user_data) {
   layer_off(_DVORAK);
   layer_on(_MDVORAK);
 	layer_off(_LOWER);
+  layer_off(_RAISE);
 	layer_off(_MRAISE);
 	layer_off(_ADJUST);
   }
@@ -512,6 +479,7 @@ void _td_alb_finished (qk_tap_dance_state_t *state, void *user_data) {
     s->alt = false;
 	layer_on(_LOWER);
 	layer_off(_RAISE);
+  layer_off(_MRAISE);
 	layer_off(_ADJUST);
   }
 }
@@ -541,6 +509,7 @@ void _td_cr_finished (qk_tap_dance_state_t *state, void *user_data) {
     s->alt = false;
 	layer_off(_LOWER);
 	layer_on(_RAISE);
+  layer_off(_MRAISE);
 	layer_off(_ADJUST);
   }
 }
@@ -569,6 +538,7 @@ void _td_gmr_finished (qk_tap_dance_state_t *state, void *user_data) {
   } else {
     s->alt = false;
 	layer_off(_LOWER);
+  layer_off(_RAISE);
 	layer_on(_MRAISE);
 	layer_off(_ADJUST);
   }
@@ -601,6 +571,7 @@ void _td_ma_finished (qk_tap_dance_state_t *state, void *user_data) {
     s->alt = false;
 	layer_off(_LOWER);
 	layer_off(_RAISE);
+  layer_off(_MRAISE);
 	layer_on(_ADJUST);
   }
 }
