@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise) (5)
  * ,-----------------------------------------------------------------------------------.
- * |Power | Reset|      | mac  | PC   |      |      |  F1  |  F2  |  F3  |  F4  |VolUp |
+ * |Power | Reset| Debug| mac  | PC   |      |      |  F1  |  F2  |  F3  |  F4  |VolUp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      | HUE+ | HUE- | SAT+ | SAT- |BRGTH+|BRGTH-|  F5  |  F6  |  F7  |  F8  |VolDn |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-  KC_PWR,  RESET,   XXXXXXX, MDVORAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,
+  KC_PWR,  RESET,   DEBUG,   MDVORAK, DVORAK,  XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,
   _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,
   _______, MUV_DE,  MUV_IN,  AU_ON,   AU_OFF,  RGB_TOG, RGB_MOD, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
   _______, KC_MEH,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
